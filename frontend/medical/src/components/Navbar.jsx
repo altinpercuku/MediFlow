@@ -1,99 +1,90 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { useState, React } from "react";
+import Logo from '../assets/foto/toplogo.png'
 
-const drawerWidth = 240;
-
-export default function Navbar() {
+const Navbar = () => {
+    const [isOpen, setIsOpen] = useState(false);
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Clipped drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
+    <nav className="border-gray-200 bg-gray-900">
+    <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <img
+          src={Logo}
+          className="h-18"
+          alt="Flowbite Logo"
+        />
+        <span className="self-center text-2xl font-semibold whitespace-nowrap text-indigo-200">
+          Medi<span className="text-green-600">Flow</span>
+        </span>
+      </a>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 text-gray-400 hover:bg-gray-700 dark:focus:ring-gray-600"
+        aria-controls="navbar-default"
+        aria-expanded={isOpen}
       >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />
-        <Typography sx={{ marginBottom: 2 }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-      </Box>
-    </Box>
-  );
+        <span className="sr-only">Open main menu</span>
+        <svg
+          className="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M1 1h15M1 7h15M1 13h15"
+          />
+        </svg>
+      </button>
+      <div
+        className={`${
+          isOpen ? "block" : "hidden"
+        } w-full md:block md:w-auto`}
+        id="navbar-default"
+      >
+        <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:p-0 text-white bg-blue-700 md:bg-transparent md:text-white dark:text-white md:dark:text-blue-500">
+                Home
+              </a>
+            </li>
+            <li>
+                <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:p-0 text-white bg-blue-700 md:bg-transparent md:text-white dark:text-white md:dark:text-blue-500">
+                    All Doctors
+                </a>
+            </li>
+            <li>
+                <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:p-0 text-white bg-blue-700 md:bg-transparent md:text-white dark:text-white md:dark:text-blue-500">
+                    About
+                </a>
+            </li>
+            <li>
+                <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:p-0 text-white bg-blue-700 md:bg-transparent md:text-white dark:text-white md:dark:text-blue-500">
+                    Contact
+                </a>
+            </li>
+            <li>
+                <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:bg-transparent underline border-gray-400 md:p-4 text-white bg-blue-700 md:text-white dark:text-white md:dark:text-blue-500">
+                    Admin Panel
+                </a>
+            </li>
+            <span className="text-gray-500 text-center">
+                or
+            </span>
+            <li>
+                <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:bg-blue-700 border-gray-400 md:p-4 text-white bg-blue-700 md:text-white dark:text-white md:dark:text-blue-500">
+                    Create Account
+                </a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  )
 }
+
+export default Navbar
