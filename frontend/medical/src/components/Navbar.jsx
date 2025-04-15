@@ -76,7 +76,7 @@ const Navbar = () => {
                 or
             </span>
             <li>
-                <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:bg-blue-700 border-gray-400 md:p-4 text-white bg-blue-700 md:text-white dark:text-white md:dark:text-blue-500">
+                <a href="login/" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:bg-blue-700 border-gray-400 md:p-4 text-white bg-blue-700 text-white hover:bg-blue-500 transition-all">
                     Create Account
                 </a>
             </li>

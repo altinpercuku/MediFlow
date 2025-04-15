@@ -1,7 +1,8 @@
 import React from 'react'
-import Navbar from './Navbar'
-import GroupPhoto from '../assets/foto/grupa.png'
-import Doctors from "../assets/foto/doctors.png"
+import Navbar from '../Navbar'
+import GroupPhoto from '../../assets/foto/grupa.png'
+import Doctors from "../../assets/foto/doctors.png"
+import Varieties from './Varieties'
 
 const Home = () => {
   return (
@@ -38,6 +39,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
+        <Varieties/>
     </>
   )
 }
