@@ -1,11 +1,13 @@
 from django.db import models
 
-# Create your models here.
+class Doctor(models.Model):
+    name = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to='doctor_photos/', null=True, blank=True)
+    availability = models.BooleanField(default=True)
+    specialization = models.CharField(max_length=255)
+    info = models.TextField()
+    appointment_fee = models.IntegerField()
 
-class Appointment(models.Model):
-    name = models.CharField(max_length=255)
-    age = models.IntegerField()
-
-    def __repr__(self):
+    def __str__(self):
         return self.name
     

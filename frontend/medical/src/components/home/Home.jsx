@@ -1,8 +1,9 @@
 import React from 'react'
 import Navbar from '../Navbar'
 import GroupPhoto from '../../assets/foto/grupa.png'
-import Doctors from "../../assets/foto/doctors.png"
+import SomeDoctors from "../../assets/foto/doctors.png"
 import Varieties from './Varieties'
+import Doctors from './Doctors'
 
 const Home = () => {
   return (
@@ -32,14 +33,15 @@ const Home = () => {
                                 <span class="relative font-bold">Book Appointment</span>
                             </a>
                         </div>
-                        <div class="p-4 rounded">
-                            <img src={Doctors} alt="Doktorret" className='lg:h-110 h-60 mx-auto' />
+                        <div class="p-4 rounded mb-4">
+                            <img src={SomeDoctors} alt="Doktorret" className='lg:h-110 h-60 mx-auto' />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <Varieties/>
+        <Doctors/>
     </>
   )
 }
