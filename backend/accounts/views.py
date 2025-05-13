@@ -1,36 +1,35 @@
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import RegisterSerializer, UserSerializer
-from django.contrib.auth.models import User
+from .models import User
+from .serializers import (
+    RegisterClientSerializer,
+    RegisterAdminSerializer,
+    LoginSerializer,
+    UserSerializer
+)
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import AllowAny
 
-class RegisterView(APIView):
-    def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response({"message": "User registered successfully!"}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class RegisterClientView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterClientSerializer
+    permission_classes = [AllowAny]
+
+class RegisterAdminView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterAdminSerializer
+    permission_classes = [AllowAny]
 
 class LoginView(APIView):
-    def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        try:
-            user = User.objects.get(username=username)
-            if user.check_password(password):
-                refresh = RefreshToken.for_user(user)
-                return Response({
-                    "access": str(refresh.access_token),
-                    "refresh": str(refresh),
-                })
-            else:
-                return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
-        except User.DoesNotExist:
-            return Response({"detail": "User not found"}, status=status.HTTP_401_UNAUTHORIZED)
+    permission_classes = [AllowAny]
 
-class ProtectedView(APIView):
-    def get(self, request):
-        user = request.user
-        return Response(UserSerializer(user).data)
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user': UserSerializer(user).data
+        })

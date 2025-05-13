@@ -15,3 +15,4 @@ class DoctorAPIView(APIView):
         doctors = Doctor.objects.all()
         serializer = DoctorSerializer(doctors, many=True)
         return Response(serializer.data)
+

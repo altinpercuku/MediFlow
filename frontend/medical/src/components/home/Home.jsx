@@ -4,6 +4,7 @@ import GroupPhoto from '../../assets/foto/grupa.png'
 import SomeDoctors from "../../assets/foto/doctors.png"
 import Varieties from './Varieties'
 import Doctors from './Doctors'
+import Footer from '../Footer'
 
 const Home = () => {
   return (
@@ -42,6 +43,7 @@ const Home = () => {
         </div>
         <Varieties/>
         <Doctors/>
+        <Footer/>
     </>
   )
 }
