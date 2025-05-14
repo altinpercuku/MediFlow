@@ -11,7 +11,7 @@ export const login = async (username, password) => {
 };
 
 export const registerClient = async (username, email, password) => {
-  const response = await axios.post(`${API_URL}/register/client/`, {
+  const response = await axios.post(`${API_URL}/register/`, {
     username,
     email,
     password,
@@ -19,11 +19,9 @@ export const registerClient = async (username, email, password) => {
   return response.data;
 };
 
-export const registerAdmin = async (username, email, password) => {
-  const response = await axios.post(`${API_URL}/register/admin/`, {
-    username,
-    email,
-    password,
-  });
-  return response.data;
+
+export const logout = () => {
+  // Remove token and user data from localStorage
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
 };

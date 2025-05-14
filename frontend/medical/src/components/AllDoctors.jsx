@@ -1,24 +1,26 @@
-import { useEffect, useState } from 'react'
-import React from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Navbar from './Navbar';
+import Footer from './Footer';
+import axios from 'axios';
 
-const Doctors = () => {
-    const [doctors, setDoctors] = useState([])
-    const lastDoctors = doctors.slice(-6);
+const AllDoctors = () => {
+  const [doctors, setDoctors] = useState([])
     useEffect(() => {
       axios.get('http://localhost:8000/api/doctors/')
           .then(response => setDoctors(response.data))
           .catch(error => console.error("Error fetching doctors: ", error));
   }, []);
   return (
-          <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="all">
+        <Navbar/>
+        <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold mb-10 text-center text-gray-800">
             Our Doctors
           </h1>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {lastDoctors.map((doctor) => (
+            {doctors.map((doctor) => (
               <div
                 key={doctor.id}
                 className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6 flex flex-col items-center text-center"
@@ -35,18 +37,11 @@ const Doctors = () => {
               </div>
             ))}
           </div>
-          <div className="flex justify-center">
-                <button
-                  className="bg-indigo-600 mt-6 cursor-pointer hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-200"
-                >
-                  <a href="/all-doctors/">
-                    More
-                  </a>
-                </button>
-              </div>
         </div>
       </div>
+      <Footer/>
+    </div>
   )
 }
 
-export default Doctors
+export default AllDoctors

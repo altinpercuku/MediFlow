@@ -1,8 +1,26 @@
-import { useState, React } from "react";
+import { useState, React, useEffect } from "react";
 import Logo from '../assets/foto/toplogo.png'
+import { useNavigate } from "react-router-dom";
+import { logout } from "./api/auth";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  // Check if the user is logged in by checking localStorage
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    logout(); // Clear user data
+    setIsLoggedIn(false); // Update state
+    navigate('/login'); // Redirect to login page
+  };
   return (
     <nav className="border-gray-200 bg-gray-900">
     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -48,18 +66,13 @@ const Navbar = () => {
       >
         <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
-              <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:p-0 text-white bg-blue-700 md:bg-transparent md:text-white dark:text-white md:dark:text-blue-500">
+              <a href="/" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:p-0 text-white bg-blue-700 md:bg-transparent md:text-white dark:text-white md:dark:text-blue-500">
                 Home
               </a>
             </li>
             <li>
-                <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:p-0 text-white bg-blue-700 md:bg-transparent md:text-white dark:text-white md:dark:text-blue-500">
+                <a href="/all-doctors/" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:p-0 text-white bg-blue-700 md:bg-transparent md:text-white dark:text-white md:dark:text-blue-500">
                     All Doctors
-                </a>
-            </li>
-            <li>
-                <a href="#" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:p-0 text-white bg-blue-700 md:bg-transparent md:text-white dark:text-white md:dark:text-blue-500">
-                    About
                 </a>
             </li>
             <li>
@@ -76,9 +89,17 @@ const Navbar = () => {
                 or
             </span>
             <li>
-                <a href="login/" className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:bg-blue-700 border-gray-400 md:p-4 text-white bg-blue-700 text-white hover:bg-blue-500 transition-all">
+              {
+                !isLoggedIn ? (
+                  <a onClick={() => navigate('/register-client')} className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:bg-blue-700 border-gray-400 md:p-4 text-white bg-blue-700 text-white hover:bg-blue-500 transition-all">
                     Create Account
                 </a>
+                ) : (
+                  <a onClick={handleLogout} className="block md:inline md:mx-2 mt-1 py-2 px-3 rounded-sm text-center md:bg-red-700 border-gray-400 md:p-4 text-white bg-blue-700 text-white hover:bg-blue-500 transition-all">
+                    Log out
+                </a>
+                )
+              }
             </li>
         </ul>
       </div>
